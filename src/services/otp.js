@@ -1,4 +1,6 @@
-// const otp = require("../models/otp");
+const Boom = require("@hapi/boom");
+const bcrypt = require("bcrypt");
+//Repo
 const otpRepo = require("../repositories/otp");
 
 exports.generateNumericOTP =  (length) => {
@@ -13,17 +15,28 @@ exports.generateNumericOTP =  (length) => {
    }
 }
 
+exports.getOtp = async (id) =>{
+        try {
+            const otp = await otpRepo.getOtp(id);
+            return otp;
+        } catch (error) {
+            throw Boom.badRequest("Can't get the otp!!!");
+        }
+}
+
 exports.verifyOtp = async(payload) => {
     try {
         // console.log(payload)
-        const otp = payload.otp
+        const otp = payload.otp;
+        const databaseOtp = await otpRepo.getOtp();
         if(!/^\d{6}$/.test(otp)){
             throw new Error("Invalid Otp!!!")
-        }else{
+        }
+        else if(otp == databaseOtp){
             const verifyOtp = await otpRepo.verifyOtp(payload);
             return verifyOtp;
-        }
-    } catch (error) {
-        throw error;
+    }
+        } catch (error) {
+        throw Boom.badRequest("Can't verify the otp!!!");
     }
 }

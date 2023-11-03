@@ -13,6 +13,16 @@ exports.otp = async(req , res) => {
     }
 }
 
+exports.getOtp = async(req , res) => {
+    try {
+        const id = req.params.id;
+        const result = await services.getOtp(id);
+        return res.status(200).json({data : result});
+    } catch (error) {
+        res.status(400).json({error: "Unable to get the otp!!!"});
+    }
+}
+
 exports.verifyOtp = async(req , res) => {
     try {
         const payload = {

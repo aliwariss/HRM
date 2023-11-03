@@ -5,13 +5,12 @@ const router = express.Router();
 const { verifyToken } = require("../middleware/authentication");
 
 //controller
-const attendanceTrackingController = require("../controller/admin");
-const assignTaskController = require("../controller/assignTask");
+const adminController = require("../controller/admin");
 
 //route
-router.get("/getAllActiveEmployees",verifyToken,attendanceTrackingController.getAllActiveEmployees);
-router.put("/updateAttendance",verifyToken,attendanceTrackingController.attendanceTracking);
-router.post("/assignTask",verifyToken,assignTaskController.assignTask);
-router.get("/getTaskDetails",verifyToken,assignTaskController.getAssignedTaskDtails);
+router.get("/getAllActiveEmployees",verifyToken,adminController.getAllActiveEmployees);
+router.put("/updateAttendance",verifyToken,adminController.attendanceTracking);
+router.post("/assignTask",verifyToken,adminController.assignTask);
+router.get("/getTaskDetails",verifyToken,adminController.getAssignedTaskDtails);
 
 module.exports = router;

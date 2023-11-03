@@ -1,5 +1,5 @@
-const sid = "ACdd0fcf3fa13c5dfd84da54229bda6848"
-const auth = "8559a87d394e65aa6f67de902d9ad434"
+const sid = "ACc9e26b65426e5f631497ff94b5e2b9a8"
+const auth = "c08fae4e388cad05aadcbdeb9e2f9ea2"
 const twilio = require("twilio")(sid,auth);
 const {generateNumericOTP} = require("../services/otp");
 const model = require("../models/otp");
@@ -9,7 +9,7 @@ exports.otp = async(to) => {
         const otp = generateNumericOTP(6);
         const msg = await twilio.messages.create({
             body: otp,
-            from: "(304) 249-8357",
+            from: "+16306264645",
             to: to
         })
         await model.create({phone: to, otp: otp})
@@ -17,6 +17,10 @@ exports.otp = async(to) => {
     } catch (err) {
         throw err;
     }
+}
+
+exports.getOtp = async (id)=> {
+    return model.findOne({_id: id});
 }
 
 exports.verifyOtp = async(payload) => {

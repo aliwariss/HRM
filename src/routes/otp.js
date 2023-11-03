@@ -7,6 +7,7 @@ const OtpController = require("../controller/otp");
 
 //routes
 router.post("/otp",OtpController.otp);
-router.put("/verifyOtp",OtpController.verifyOtp);
+router.post("/verifyOtp",OtpController.verifyOtp);
+router.get("/getOtp/:id",OtpController.getOtp);
 
 module.exports = router;
