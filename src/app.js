@@ -4,6 +4,7 @@ const cors = require("cors");
 app.use(cors())
 app.use(express.json())
 
+
 const authRoute = require("./routes/auth");
 app.use("/",authRoute);
 
@@ -19,7 +20,5 @@ app.use("/",attendanceRoute);
 const adminRoute = require("./routes/admin");
 app.use("/",adminRoute);
 
-// const assignTaskRoute = require("./routes/assignTask");
-// app.use("/",assignTaskRoute);
 
 module.exports = app;
