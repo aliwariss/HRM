@@ -8,6 +8,7 @@ exports.assignTask = async (payload) => {
         const createPayload = {
             employeeId: payload.employeeId,
             task: payload.task,
+            taskDescription: payload.taskDescription,
             startDate: payload.startDate,
             endDate: payload.endDate,
             dayStartTime: payload.dayStartTime,

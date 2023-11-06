@@ -20,5 +20,7 @@ app.use("/",attendanceRoute);
 const adminRoute = require("./routes/admin");
 app.use("/",adminRoute);
 
+const progressRoute = require('./routes/progress');
+app.use("/",progressRoute);
 
 module.exports = app;

@@ -1,27 +1,33 @@
 const Boom = require("@hapi/boom");
 
-//repo
 const attendanceRepo = require("../repositories/attendanceMarking");
 const assignTask  = require("../repositories/assignTask");
 
 exports.attendanceMarking = async (payload) => {
     try {
+        const utcTime = payload.date;
+        const timezoneOffset = utcTime.getTimezoneOffset();
+        const localTime = new Date(utcTime.getTime() - (timezoneOffset * 60 * 1000));
+        payload.date = localTime;
         const task = await assignTask.getAssignedTaskDetails(payload.employeeId);
         // console.log("Task:", task);
-        if(task){
-            payload.dayStartTime = task[0].dayStartTime;
-        }
-        
-        if (!task || !task[0].dayStartTime) {
+        const employeeTask = task.find(employee => employee.employeeId.toString() === payload.employeeId);
+        // console.log("Found employeeTask:", employeeTask);
+        if(employeeTask && employeeTask.dayStartTime) {
+            if (!payload.dayStartTime) {
+                // console.log("Employee Task dayStartTime:", employeeTask.dayStartTime);
+
+                payload.dayStartTime = employeeTask.dayStartTime;
+            }
+        } else {
             return Promise.reject("No task assigned to the employee or dayStartTime not defined in task!!!");
         }
-        
         const dateParts = payload.date.toISOString().split('T')[0].split('-');
         const year = parseInt(dateParts[0]);
         const month = parseInt(dateParts[1]) - 1;
         const day = parseInt(dateParts[2]);
 
-        const timeParts = task[0].dayStartTime.split(/:| /);
+        const timeParts = employeeTask.dayStartTime.split(/:| /);
         let hours = parseInt(timeParts[0]);
         const minutes = parseInt(timeParts[1]);
 
@@ -46,8 +52,26 @@ exports.attendanceMarking = async (payload) => {
         const attendanceRecord = await attendanceRepo.attendanceMarking(payload);
         return attendanceRecord;
     } catch (error) {
-        throw error;
+        throw Boom.badRequest({error:"Can't mark attendance!!!"});
     }
+}
+
+exports.checkOut = async (payload) => {
+    try{
+        const utcTime = payload.checkOut;
+        const timezoneOffset = utcTime.getTimezoneOffset();
+        const localTime = new Date(utcTime.getTime() - (timezoneOffset * 60 * 1000));
+        payload.checkOut = localTime;
+        const createPayload = {
+        employeeId: payload.employeeId,
+        checkOut: localTime
+    }
+    const employeeCheckOut = await attendanceRepo.checkOut(createPayload);
+    return employeeCheckOut;
+}
+catch(error){
+    throw Boom.badRequest({error:"Can't checkOut!!!"});
+}
 }
 
 

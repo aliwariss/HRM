@@ -5,6 +5,7 @@ const router = express.Router();
 const attendanceController = require("../controller/attendanceMarking");
 
 //route
-router.post("/attendance/:id",attendanceController.attendanceMarking);
+router.post("/attendance",attendanceController.attendanceMarking);
+router.post("/checkOut",attendanceController.checkOut);
 
 module.exports = router;

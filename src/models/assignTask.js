@@ -10,6 +10,10 @@ const assignTask = new mongoose.Schema({
         type: String,
         required: true
     },
+    taskDescription: {
+        type: String,
+        required: true
+    },
     startDate: {
         type: String,
         required: true

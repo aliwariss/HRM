@@ -28,6 +28,7 @@ exports.assignTask = async (req , res) => {
         const payload = {
             employeeId: req.body.employeeId,
             task: req.body.task,
+            taskDescription: req.body.taskDescription,
             startDate: req.body.startDate,
             endDate: req.body.endDate,
             dayStartTime: req.body.dayStartTime,

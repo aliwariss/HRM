@@ -25,6 +25,9 @@ exports.updatedUser = async(payload) => {
     if(payload.address){
         updatableFields.address = payload.address;
     }
+    if(payload.designation){
+        updatableFields.designation = payload.designation;
+    }
     if(Object.keys(updatableFields).length > 0){
         await userRepo.updateById(payload.userId, updatableFields);
     }

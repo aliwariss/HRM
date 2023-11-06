@@ -13,6 +13,7 @@ exports.signup = async (payload) => {
             email: payload.email,
             password: passwordHash,
             phone: payload.phone,
+            designation: payload.designation,
             roles: payload.roles || "User"
         }
         const addUser = await authRepo.signUp(createPayload)
@@ -51,7 +52,6 @@ exports.signin = async (payload) => {
             }
         }
         
-
     } catch (err) {
         throw Boom.badRequest("Account doesn't exsit!!!")
     }

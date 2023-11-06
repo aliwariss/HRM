@@ -5,8 +5,6 @@ const attendanceSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
-        // type: String,
-        // required: true
     },
     date: {
         type: Date,
@@ -19,12 +17,7 @@ const attendanceSchema = new mongoose.Schema({
     attendanceMarked: {
         type: Boolean,
         default: false
-    },
-        // 
-    // late: {
-    //     type: Boolean,
-    //     default: false
-    // }
+    }
 },{timestamps: true});
 
 const attendanceMarking = mongoose.model("attendanceMarking",attendanceSchema);
