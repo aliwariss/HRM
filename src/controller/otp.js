@@ -9,7 +9,7 @@ exports.otp = async(req , res) => {
         return res.status(200).json({otp});
     } catch (error) {
         console.log(error)
-        res.status(400).json({error})
+        res.status(400).json({error:"Unable to generate otp!!!"})
     }
 }
 

@@ -13,8 +13,8 @@ const ProgressSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['Not Started', 'In Progress', 'Completed'],
-    default: 'Not Started'
+    enum: ['Pending', 'In Progress', 'Completed'],
+    default: 'Pending'
   },
   comments: {
     type: String,

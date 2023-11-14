@@ -5,10 +5,6 @@ const assignTask  = require("../repositories/assignTask");
 
 exports.attendanceMarking = async (payload) => {
     try {
-        const utcTime = payload.date;
-        const timezoneOffset = utcTime.getTimezoneOffset();
-        const localTime = new Date(utcTime.getTime() - (timezoneOffset * 60 * 1000));
-        payload.date = localTime;
         const task = await assignTask.getAssignedTaskDetails(payload.employeeId);
         // console.log("Task:", task);
         const employeeTask = task.find(employee => employee.employeeId.toString() === payload.employeeId);
@@ -48,7 +44,9 @@ exports.attendanceMarking = async (payload) => {
         payload.attendanceMarked = true;
         // console.log("Payload:", payload);
         // console.log("Threshold Time:", thresholdTime);
-        
+        console.log("payload.date:", payload.date);
+console.log("thresholdTime:", thresholdTime);
+console.log("timeDifference:", timeDifference);
         const attendanceRecord = await attendanceRepo.attendanceMarking(payload);
         return attendanceRecord;
     } catch (error) {
@@ -58,13 +56,9 @@ exports.attendanceMarking = async (payload) => {
 
 exports.checkOut = async (payload) => {
     try{
-        const utcTime = payload.checkOut;
-        const timezoneOffset = utcTime.getTimezoneOffset();
-        const localTime = new Date(utcTime.getTime() - (timezoneOffset * 60 * 1000));
-        payload.checkOut = localTime;
         const createPayload = {
         employeeId: payload.employeeId,
-        checkOut: localTime
+        checkOut: payload.checkOut
     }
     const employeeCheckOut = await attendanceRepo.checkOut(createPayload);
     return employeeCheckOut;
@@ -74,5 +68,20 @@ catch(error){
 }
 }
 
+exports.getAllEmployeesAttendances = async () =>{
+    try {
+        const attendance = await attendanceRepo.getAllEmployeesAttednances();
+        return attendance;
+    } catch (error) {
+        throw Boom.badRequest(error);
+    }
+}
 
-
+exports.getAllCheckOuts = async ()=> {
+    try {
+        const getCheckOuts = await attendanceRepo.getAllCheckOuts();
+        return getCheckOuts;
+    } catch (error) {
+        throw Boom.badRequest(error);
+    }
+}

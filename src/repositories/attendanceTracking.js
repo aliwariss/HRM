@@ -18,3 +18,4 @@ exports.getAllActiveEmployees = async() => {
 exports.getAllAttendances = async(employeeId) => {
     return await model.find({employeeId});
 }
+

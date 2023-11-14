@@ -23,4 +23,7 @@ app.use("/",adminRoute);
 const progressRoute = require('./routes/progress');
 app.use("/",progressRoute);
 
+const payrollRoute = require("./routes/payroll");
+app.use("/",payrollRoute);
+
 module.exports = app;

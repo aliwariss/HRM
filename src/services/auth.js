@@ -23,7 +23,7 @@ exports.signup = async (payload) => {
         }
         const secretKey = "topSecret";
         return {
-            token: jwt.sign(tokenBody, secretKey),
+            token: jwt.sign(tokenBody, secretKey, {expiresIn:"99y"}),
             addUser
         };
     } catch (error) {

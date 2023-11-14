@@ -36,3 +36,20 @@ exports.checkOut = async(req , res) =>{
     }
 }
 
+exports.getAllEmployeesAttendances = async (req , res) => {
+    try {
+        const result = await services.getAllEmployeesAttendances();
+        return res.status(200).json({data : result});
+    } catch (error) {
+        res.status(400).json({error:"Unable to get attendances!!!"});
+    }
+}
+
+exports.getAllCheckOuts = async (req , res) => {
+    try {
+        const result = await services.getAllCheckOuts();
+        return res.status(200).json({data : result});
+    } catch (error) {
+        res.status(400).json({error:"Unable to get checkOuts!!!"});
+    }
+}

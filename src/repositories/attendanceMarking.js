@@ -6,7 +6,13 @@ exports.attendanceMarking = async (payload) => {
 }
 
 exports.checkOut = async (payload) => {
-        return await checkOutModel.create(payload);
+        return await checkOutModel.create({employeeId:payload.employeeId, checkOut:payload.checkOut});
 }
 
-    
+exports.getAllEmployeesAttednances = async() => {
+        return await model.find();
+    }
+
+exports.getAllCheckOuts = async () => {
+        return await checkOutModel.find();
+}
