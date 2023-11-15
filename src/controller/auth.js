@@ -50,3 +50,16 @@ exports.signin = async (req, res) => {
     }
 }
 
+exports.signOut = async(req , res) => {
+    try {
+        const payload = {
+            employeeId: req.body.employeeId,
+            signOut: new Date()
+        }
+        const result = await services.signOut(payload);
+        return res.status(200).json({data : result});
+    } catch (error) {
+        res.status(400).json({error: "Unable to signOut!!!"});
+    }
+}
+

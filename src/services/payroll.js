@@ -1,7 +1,7 @@
 const Boom = require("@hapi/boom");
 
 //attendanceRepo
-const hourlyPayrollRepo = require("../repositories/payroll");
+const payrollRepo = require("../repositories/payroll");
 const attendanceRepo = require("../repositories/attendanceMarking");
 
 exports.hourlyPayroll = async (payload) => {
@@ -71,10 +71,26 @@ exports.hourlyPayroll = async (payload) => {
       const overtimePay = totalOvertimeHours * overtimeRate;
       return regularPay + overtimePay;
     }
-    const finalSalary = await hourlyPayrollRepo.hourlyPayroll(createPayload);
+    const finalSalary = await payrollRepo.hourlyPayroll(createPayload);
     return finalSalary;
 
 
+  } catch (error) {
+    throw Boom.badRequest(error);
+  }
+}
+
+exports.monthlyPayroll = async (payload) => {
+  try {
+    const createPayload = {
+      employeeId: payload.employeeId,
+      monthlySalary: payload.monthlySalary,
+      month: payload.month,
+      year: payload.year
+    }
+
+    const monthlyPayroll = await payrollRepo.monthlyPayroll(createPayload);
+    return monthlyPayroll;
   } catch (error) {
     throw Boom.badRequest(error);
   }

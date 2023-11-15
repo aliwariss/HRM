@@ -73,3 +73,19 @@ exports.hourlyPayroll = async(req , res) => {
         res.status(400).json({error:"Unable to calculate payroll!!!"});
     }
 }
+
+exports.monthlyPayroll = async (req , res) => {
+    try {
+        const payload = {
+            employeeId: req.body.employeeId,
+            monthlySalary: req.body.monthlySalary,
+            month: req.body.month,
+            year: req.body.year
+        }
+
+        const result = await payrollServices.monthlyPayroll(payload);
+        return res.status(200).json({data : result});
+    } catch (error) {
+        res.status(400).json({error: "Unable to generate payroll!!!"});
+    }
+}

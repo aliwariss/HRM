@@ -56,3 +56,16 @@ exports.signin = async (payload) => {
         throw Boom.badRequest("Account doesn't exsit!!!")
     }
 }
+
+exports.signOut = async(paylaod) => {
+    try {
+        const createPayload = {
+            employeeId: paylaod.employeeId,
+            signOut: paylaod.signOut
+        }
+        const signedOut = await authRepo.signOut(createPayload);
+        return signedOut;
+    } catch (error) {
+        throw Boom.badRequest(error);
+    }
+}

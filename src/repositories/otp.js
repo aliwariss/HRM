@@ -1,5 +1,5 @@
 const sid = "ACc9e26b65426e5f631497ff94b5e2b9a8"
-const auth = "c08fae4e388cad05aadcbdeb9e2f9ea2"
+const auth = "14e4246b3f8dbc0aed99151dc28c7f10"
 const twilio = require("twilio")(sid,auth);
 const {generateNumericOTP} = require("../services/otp");
 const model = require("../models/otp");

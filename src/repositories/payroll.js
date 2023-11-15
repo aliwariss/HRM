@@ -1,5 +1,5 @@
-const model = require("../models/payroll");
-const services = require("../services/payroll");
+const model = require("../models/hourlyPayroll");
+const monthlyModel = require("../models/monthlyPayroll");
 
 exports.hourlyPayroll = async (payload) => {
     try {
@@ -25,3 +25,7 @@ exports.hourlyPayroll = async (payload) => {
         throw new Error("Error calculating and saving payroll");
     }
 };
+
+exports.monthlyPayroll = async (payload) => {
+    return await monthlyModel.create(payload);
+}
