@@ -3,7 +3,6 @@ const services = require("../services/payroll");
 
 exports.hourlyPayroll = async (payload) => {
     try {
-        // const { totalPay, totalWorkedHours, totalOvertimeHours } = await services.hourlyPayroll(checkInRecords, checkOutRecords, payload);
         const totalPay = payload.totalPay || 0;
         const totalWorkedHours = payload.totalWorkedHours || 0;
         const totalOvertimeHours = payload.totalOvertimeHours || 0;

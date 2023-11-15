@@ -12,5 +12,6 @@ router.get("/getAllActiveEmployees",verifyToken,adminController.getAllActiveEmpl
 router.put("/updateAttendance",verifyToken,adminController.attendanceTracking);
 router.post("/assignTask",verifyToken,adminController.assignTask);
 router.get("/getTaskDetails",verifyToken,adminController.getAssignedTaskDtails);
+router.post("/hourlyPayroll",verifyToken,adminController.hourlyPayroll);
 
 module.exports = router;

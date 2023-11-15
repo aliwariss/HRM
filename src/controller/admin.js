@@ -1,6 +1,7 @@
 //services
 const attendanceTrackingservices = require("../services/attendanceTracking");
 const assignTaskservices = require("../services/assignTask");
+const payrollServices = require("../services/payroll");
 
 exports.getAllActiveEmployees = async (req , res) => {
     try {
@@ -53,4 +54,22 @@ exports.getAssignedTaskDtails = async(req , res) => {
         console.log(error)
         res.status(400).json({error: "Unable to fetch details!!!"})
     }
-} 
+}
+
+
+exports.hourlyPayroll = async(req , res) => {
+    try {
+        const payload = {
+            employeeId: req.body.employeeId,
+            hourlyRate: req.body.hourlyRate,
+            overTimeRate: req.body.overTimeRate,
+            month: req.body.month,
+            year: req.body.year
+            }
+        const result = await payrollServices.hourlyPayroll(payload);
+        return res.status(200).json({data : result});
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({error:"Unable to calculate payroll!!!"});
+    }
+}
