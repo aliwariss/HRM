@@ -1,4 +1,5 @@
 const joi = require("joi");
+joi.objectId = require("joi-objectid")(joi);
 
 exports.assignTaskSchema = joi.object({
     employeeId: joi.objectId().required(),

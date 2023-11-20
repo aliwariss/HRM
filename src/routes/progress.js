@@ -6,5 +6,6 @@ const progressController = require("../controller/progress");
 
 //routes
 router.post("/progress",progressController.assignedTaskProgress);
+router.put("/updateProgress/:id",progressController.updateTask);
 
 module.exports = router;

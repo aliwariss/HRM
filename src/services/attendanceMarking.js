@@ -1,10 +1,14 @@
 const Boom = require("@hapi/boom");
-
+const joi = require("../validations/joi");
+const attendanceJoiSchema = require("../validations/schema/attendanceMarking");
+const checkOutJoiSchema = require("../validations/schema/checkOut");
+//repo
 const attendanceRepo = require("../repositories/attendanceMarking");
 const assignTask  = require("../repositories/assignTask");
 
 exports.attendanceMarking = async (payload) => {
     try {
+        joi.validate(payload,attendanceJoiSchema.attendanceMarkingSchema);
         const task = await assignTask.getAssignedTaskDetails(payload.employeeId);
         // console.log("Task:", task);
         const employeeTask = task.find(employee => employee.employeeId.toString() === payload.employeeId);
@@ -56,6 +60,7 @@ console.log("timeDifference:", timeDifference);
 
 exports.checkOut = async (payload) => {
     try{
+        joi.validate(payload,checkOutJoiSchema);
         const createPayload = {
         employeeId: payload.employeeId,
         checkOut: payload.checkOut

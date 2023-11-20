@@ -1,11 +1,11 @@
 const Boom = require("@hapi/boom");
-const bcrypt = require("bcrypt");
+
 //Repo
 const otpRepo = require("../repositories/otp");
 
 exports.generateNumericOTP =  (length) => {
     {
-       const characters = '0123456789';
+        const characters = '0123456789';
        let OTP = '';
        for (let i = 0; i < length; i++) {
            const index = Math.floor(Math.random() * characters.length);

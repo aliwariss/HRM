@@ -1,11 +1,17 @@
-const authRepo = require("../repositories/user");
 const bcrypt = require("bcrypt");
 const Boom = require("@hapi/boom");
 const jwt = require("jsonwebtoken");
-// const roles = require("../constants/roles");
+
+const joi = require("../validations/joi");
+const joiSchema = require("../validations/schema/user");
+const signOutJoiSchema = require("../validations/schema/signOutSchema");
+
+//repo
+const authRepo = require("../repositories/user");
 
 exports.signup = async (payload) => {
     try {
+        joi.validate(payload,joiSchema.userSchema);
         const passwordHash = await bcrypt.hash(payload.password, 6);
         const createPayload = {
             firstName: payload.firstName,
@@ -33,6 +39,7 @@ exports.signup = async (payload) => {
 
 exports.signin = async (payload) => {
     try {
+        joi.validate(payload,joiSchema.userSchema);
         if (payload.email && payload.password) {
             const findUser = await authRepo.findOne(payload);
             if (findUser) {
@@ -59,6 +66,7 @@ exports.signin = async (payload) => {
 
 exports.signOut = async(paylaod) => {
     try {
+        joi.validate(paylaod,signOutJoiSchema.signOutSchema);
         const createPayload = {
             employeeId: paylaod.employeeId,
             signOut: paylaod.signOut

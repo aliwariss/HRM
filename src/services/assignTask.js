@@ -1,10 +1,12 @@
 const Boom = require("@hapi/boom");
-
+const joi = require("../validations/joi");
+const joiSchema = require("../validations/schema/assignTask");
 //repo
 const assignTaskRepo = require("../repositories/assignTask");
 
 exports.assignTask = async (payload) => {
     try {
+        joi.validate(payload,joiSchema.assignTaskSchema);
         const createPayload = {
             employeeId: payload.employeeId,
             task: payload.task,
@@ -31,3 +33,4 @@ exports.getAssignedTaskDetails = async () => {
         throw Boom.badRequest(error)
     }
 }
+

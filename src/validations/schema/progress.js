@@ -1,4 +1,5 @@
 const joi = require("joi");
+joi.objectId = require("joi-objectid")(joi);
 
 exports.progressSchema = joi.object({
     taskId: joi.objectId().required(),

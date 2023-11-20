@@ -1,4 +1,7 @@
 const Boom = require("@hapi/boom");
+const joi = require("../validations/joi");
+const hourlyPayrollJoiSchema = require("../validations/schema/hourlyPayroll");
+const monthlyPayrollJoiSchema = require("../validations/schema/monthlyPayroll");
 
 //attendanceRepo
 const payrollRepo = require("../repositories/payroll");
@@ -6,6 +9,7 @@ const attendanceRepo = require("../repositories/attendanceMarking");
 
 exports.hourlyPayroll = async (payload) => {
   try {
+    joi.validate(payload,hourlyPayrollJoiSchema);
     const employeeId = payload.employeeId;
     const checkInRecords = await attendanceRepo.getAllEmployeesAttednances(employeeId);
     const checkOutRecords = await attendanceRepo.getAllCheckOuts(employeeId);
@@ -82,6 +86,7 @@ exports.hourlyPayroll = async (payload) => {
 
 exports.monthlyPayroll = async (payload) => {
   try {
+    joi.validate(payload,monthlyPayrollJoiSchema);
     const createPayload = {
       employeeId: payload.employeeId,
       monthlySalary: payload.monthlySalary,

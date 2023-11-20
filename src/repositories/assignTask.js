@@ -7,3 +7,4 @@ exports.assignTask = async(payload) => {
 exports.getAssignedTaskDetails = async() =>{
     return await model.find();
 }
+

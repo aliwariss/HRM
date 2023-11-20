@@ -1,10 +1,13 @@
 const Boom = require("@hapi/boom");
+const joi = require("../validations/joi");
+const joiSchema = require("../validations/schema/user");
 
 //repo
 const userRepo = require("../repositories/user");
 
 exports.updatedUser = async(payload) => {
     try{
+        joi.validate(payload,joiSchema.userSchema);
         const updatableFields = {};
     if(payload.firstName){
         updatableFields.firstName = payload.firstName;
