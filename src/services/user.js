@@ -1,7 +1,7 @@
 const Boom = require("@hapi/boom");
 const joi = require("../validations/joi");
 const joiSchema = require("../validations/schema/user");
-
+const bcrypt = require("bcrypt");
 //repo
 const userRepo = require("../repositories/user");
 
